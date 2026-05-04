@@ -1,149 +1,160 @@
-# Segmentação Inteligente de Empresas com Machine Learning Não Supervisionado
+# 📊 Análise de Empresas com Machine Learning (K-Means + Apriori)
 
-## 📌 Visão Geral
-Este projeto tem como objetivo segmentar **mais de 1 milhão de empresas** a partir de dados cadastrais e financeiros, utilizando técnicas de **Machine Learning não supervisionado** e **Data Mining**.
+## 📌 Descrição do Projeto
+Este projeto tem como objetivo analisar o comportamento de empresas a partir de seus dados cadastrais, utilizando técnicas de **Aprendizado de Máquina Não Supervisionado**.
 
-A proposta foi identificar **perfis empresariais semelhantes**, validar a qualidade dos agrupamentos e, posteriormente, **explicar semanticamente os clusters gerados**.
-
-O pipeline foi construído com foco em:
-- descoberta de padrões
-- segmentação de perfis
-- interpretação de clusters
-- geração de insights de negócio
+A proposta central foi:
+- Identificar padrões ocultos nos dados
+- Segmentar empresas com base em características similares
+- Detectar possíveis fatores associados ao risco empresarial
 
 ---
 
 ## 🎯 Objetivos
-- Agrupar empresas com características semelhantes
-- Descobrir o número ideal de clusters
-- Interpretar o perfil de cada grupo
-- Identificar padrões frequentes dentro dos clusters
-- Apoiar análises de risco, crescimento e perfil financeiro
+
+- Realizar análise exploratória de dados empresariais
+- Criar variáveis relevantes (ex: longevidade)
+- Aplicar **clusterização (K-Means)** para segmentação
+- Utilizar **Apriori** para extração de regras e explicação dos padrões
+- Validar os resultados com variáveis externas (Simples Nacional)
 
 ---
 
-## 🧠 Técnicas de IA & ML Utilizadas
-### Machine Learning Não Supervisionado
-- **K-Means Clustering**
-- **PCA (Principal Component Analysis)**
-- **Silhouette Score**
-- **Elbow Method**
+## 🛠️ Tecnologias Utilizadas
 
-### Data Mining / Explainable Analytics
-- **Apriori Algorithm**
-- **Association Rules**
-- **Cluster Explainability**
-
-### Engenharia de Dados e Features
-- Tratamento de encoding UTF-8
-- Limpeza de dados textuais com Regex
-- Tratamento de nulos
-- Padronização numérica com `StandardScaler`
-- Transformação logarítmica
-- Binning / discretização com `qcut` e `cut`
-- Encoding categórico (One-Hot, Frequency e Ordinal)
+- Python
+- Pandas
+- NumPy
+- Scikit-learn
+  - KMeans
+  - StandardScaler
+- Mlxtend
+  - Apriori
+  - Association Rules
+- Matplotlib / Seaborn
 
 ---
 
-## 🛠️ Stack Tecnológica
-- **Python**
-- **Pandas**
-- **NumPy**
-- **Scikit-learn**
-- **Mlxtend**
-- **Matplotlib**
-- **Jupyter Notebook / VS Code**
+---
+
+## 🔄 Etapas do Projeto
+
+### 1. Pré-processamento
+- Seleção de variáveis relevantes
+- Tratamento de dados inconsistentes
+- Conversão de tipos (datas, categóricos)
+- Criação de novas variáveis:
+  - **Longevidade (anos)**
+  - **Faixas de longevidade**
+- Transformação de variáveis categóricas (One-Hot Encoding para Apriori)
 
 ---
 
-## 📊 Fluxo do Projeto
-```text
-Coleta e limpeza dos dados
-        ↓
-Feature Engineering
-        ↓
-Padronização
-        ↓
-K-Means
-        ↓
-Elbow + Silhouette
-        ↓
-PCA + Radar / Spider
-        ↓
-Cruzamento com ST_CADASTRO
-        ↓
-Apriori para explicar clusters
-```
+### 2. Padronização
+Aplicação do **StandardScaler** para normalizar variáveis numéricas:
+- ANOS
+- VL_CAPITAL_SOCIAL
+- Indicadores derivados
 
 ---
 
-## 🧩 Variáveis Utilizadas
-### Clusterização
-- `ANOS`
-- `VLR_FATURAMENTO_MAX`
-- `VL_CAPITAL_SOCIAL_LOG`
-
-### Explicação dos Clusters
-- `ST_CADASTRO`
-- Faixas de anos
-- Faixas de faturamento
-- Faixas de capital
-- Cluster gerado
+### 3. Clusterização (K-Means)
+- Definição do número de clusters com:
+  - Método do cotovelo (Elbow)
+  - Silhouette Score
+- Segmentação das empresas em perfis distintos
 
 ---
 
-## 📈 Principais Resultados
-O modelo identificou **3 perfis principais de empresas**:
-
-### 🔵 Cluster 0 — Empresas Consolidadas Tradicionais
-- empresas antigas
-- capital social alto
-- faturamento médio
-- perfil estável e estruturado
-
-### 🟢 Cluster 1 — Empresas Maduras de Baixo Capital
-- empresas antigas
-- capital social baixo
-- faturamento médio
-- maior incidência de baixadas
-
-### 🟠 Cluster 2 — Empresas de Alto Faturamento
-- alto faturamento
-- cluster altamente puro
-- forte previsibilidade estatística
+### 4. Regras de Associação (Apriori)
+- Transformação da base em formato transacional
+- Extração de **itemsets frequentes**
+- Geração de regras com métricas:
+  - Support
+  - Confidence
+  - Lift
 
 ---
 
-## 🔍 Exemplo de Insight Gerado
-Uma das regras mais fortes encontradas pelo Apriori foi:
+### 5. Validação do Modelo
+A variável **Simples Nacional** NÃO foi utilizada na clusterização.
 
-> **FAT_ALTO → CLUSTER_2**
-
-Isso mostrou que **99,9% das empresas com faturamento alto pertencem ao Cluster 2**, validando a separação financeira feita pelo K-Means.
-
----
-
-## 💼 Aplicações de Negócio
-Este projeto pode ser aplicado em:
-- segmentação comercial
-- análise de crédito
-- prevenção de risco
-- prospecção B2B
-- políticas de relacionamento
-- inteligência de mercado
-- análise de churn empresarial
+Ela foi usada posteriormente para:
+- Validar os padrões encontrados
+- Interpretar o comportamento dos clusters
 
 ---
 
-## 🚀 Próximos Passos
-- Testar outros algoritmos de clusterização (DBSCAN, GMM, Hierárquico)
-- Criar dashboard interativo em Power BI / Streamlit
-- Adicionar score de risco por cluster
-- Incorporar variáveis setoriais e geográficas
-- Deploy do pipeline para uso analítico contínuo
+## 📊 Principais Resultados
+
+### 🔹 Cluster A – Jovens Pouco Capitalizadas
+- Empresas mais novas
+- Maioria saudável
+- Forte presença no Simples Nacional
 
 ---
 
-## 👨‍💻 Autor
-Projeto desenvolvido por **Leonardo Zell** como estudo aplicado de **Machine Learning, Analytics e Segmentação Empresarial**.
+### 🔹 Cluster B – Maduras Capitalizadas
+- Empresas consolidadas
+- Perfil estável
+- Parte relevante ainda no Simples
+
+---
+
+### 🔹 Cluster C – Maduras Pouco Capitalizadas
+- Empresas estáveis
+- Baixa adesão ao Simples
+- Indício de crescimento ou mudança tributária
+
+---
+
+### 🔹 Cluster D – Jovens Capitalizadas em Risco
+- Alta taxa de exclusão do Simples (~78%)
+- Forte associação com risco empresarial
+
+---
+
+## 🔍 Principais Insights
+
+- Empresas fora do Simples Nacional apresentam maior associação com risco
+- Permanência no Simples está ligada à estabilidade operacional
+- Empresas maduras fora do Simples podem indicar crescimento, não necessariamente risco
+- O modelo identificou padrões relevantes **sem utilizar variável alvo**
+
+---
+
+## 📈 Métricas Utilizadas (Apriori)
+
+- **Support**: Frequência da regra no dataset
+- **Confidence**: Probabilidade do consequente dado o antecedente
+- **Lift**: Força da associação (acima de 1 indica relação relevante)
+
+---
+
+## 🚀 Possíveis Aplicações
+
+- Análise de risco empresarial
+- Segmentação de clientes (B2B)
+- Apoio à decisão em crédito
+- Inteligência de mercado
+
+---
+
+## 🎓 Contexto Acadêmico
+
+Projeto desenvolvido na disciplina de:
+**Aprendizado de Máquina Não Supervisionado**  
+Faculdade Senac-DF
+
+---
+
+## 📌 Autor
+
+Leonardo Zell
+
+---
+
+## 📬 Contato
+
+[LinkedIn](#) *[(adicione seu link aqui)](https://www.linkedin.com/in/leonardozell/)*
 
