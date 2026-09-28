@@ -156,5 +156,5 @@ Leonardo Zell
 
 ## 📬 Contato
 
-[LinkedIn](#) *[(adicione seu link aqui)](https://www.linkedin.com/in/leonardozell/)*
+[LinkedIn](#) *[(https://www.linkedin.com/in/leonardozell/)]*
 
